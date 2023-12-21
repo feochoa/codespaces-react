@@ -3,13 +3,26 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import socketIOClient from "socket.io-client";
 
-const ENDPOINT = "http://127.0.0.1:3000"; // Your server endpoint
+const ENDPOINT = "https://fantastic-chainsaw-jjg55xq59rhxrr-3001.app.github.dev/"; // Your server endpoint
 const socket = socketIOClient(ENDPOINT);
 
 const MapComponent = () => {
   const [users, setUsers] = useState({});
 
   useEffect(() => {
+    // Get the user's current location
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(position => {
+        const location = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude
+        };
+
+        // Emit the location to the server
+        socket.emit('updateLocation', location);
+      });
+    }
+
     // Listen for location updates from the server
     socket.on("locationUpdate", (updatedUsers) => {
       setUsers(updatedUsers);

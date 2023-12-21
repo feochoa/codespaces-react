@@ -21,7 +21,7 @@ const io = new Server(server, {
   }
 });
 
-const PORT = process.env.PORT || 2000;
+const PORT = process.env.PORT || 3001;
 
 // Enable CORS for your Express routes
 app.use(cors());
