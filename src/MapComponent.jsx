@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import socketIOClient from "socket.io-client";
 
-const ENDPOINT = "http://localhost:3000"; // Your server endpoint
+const ENDPOINT = "http://127.0.0.1:3000"; // Your server endpoint
 const socket = socketIOClient(ENDPOINT);
 
 const MapComponent = () => {
