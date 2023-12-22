@@ -26,6 +26,8 @@ const MapComponent = () => {
     // Listen for location updates from the server
     socket.on("locationUpdate", (updatedUsers) => {
       setUsers(updatedUsers);
+      // Debugging: Check if this log appears when the server emits locationUpdate
+      console.log('Received locationUpdate from server', updatedUsers);
     });
   }, []);
 

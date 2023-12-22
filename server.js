@@ -47,9 +47,16 @@ io.on('connection', (socket) => {
   socket.on('updateLocation', (location) => {
     console.log(`Location of ${socket.id}: ${location.latitude}, ${location.longitude}`);
     users[socket.id].location = location;
+    // Broadcast the updated users' data to all connected clients
+    
+    io.emit('locationUpdate', users);
+    // Debugging: Check if this log appears when location is updated
+    console.log(`Emitting locationUpdate for all users`);
+    
     // Here you can add logic to check if a cat catches a mouse
   });
 
+  
   socket.on('mouseCaught', () => {
     if(users[socket.id].role === 'mouse') {
       users[socket.id].role = 'cat'; // Change role from mouse to cat
@@ -57,6 +64,8 @@ io.on('connection', (socket) => {
       socket.emit('roleChanged', 'cat');
     }
   });
+
+
 
   socket.on('disconnect', () => {
     console.log('User disconnected: ' + socket.id);
